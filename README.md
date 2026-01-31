@@ -3,7 +3,7 @@
 <table>
 <tr>
 <td width="200">
-<img width="512" height="512" src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/external-mri-medical-technology-wanicon-lineal-color-wanicon.png" alt="external-mri-medical-technology-wanicon-lineal-color-wanicon"/>
+<img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/45fda6b6-bad3-4b0a-a819-e6d5d3c958a8" />
 </td>
 <td>
   <h3>Enterprise-Grade Federated Learning for Privacy-Preserving Medical Image Segmentation</h3>
