@@ -3,7 +3,7 @@
 <table>
 <tr>
 <td width="200">
-<img width="512" height="512" alt="Medical FL Platform Logo" src="https://github.com/user-attachments/assets/medical-fl-logo.png" />
+<img width="512" height="512" alt="Medical FL Platform Logo" src="https://icons8.com/icon/CCqNTDaBOQH9/mri" />
 </td>
 <td>
   <h3>Enterprise-Grade Federated Learning for Privacy-Preserving Medical Image Segmentation</h3>
