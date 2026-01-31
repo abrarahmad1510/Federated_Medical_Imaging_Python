@@ -757,19 +757,19 @@ git push origin feature/your-feature-name
 
 ## Use Cases
 
-### 🧠 Brain Tumor Segmentation
+### ⚪️ Brain Tumor Segmentation
 Multi-institutional study for glioblastoma detection across 15 hospitals, achieving 0.89 Dice score while maintaining patient privacy. Enabled rare tumor variant detection impossible at single institutions.
 
-### 🫁 COVID-19 Lung CT Analysis
+### ⚪️ Computed Tomography (CT) Pulmonary Analysis for COVID-19
 Rapid deployment across 50 hospitals in 12 countries during pandemic, creating global model for COVID severity assessment without centralizing sensitive patient data.
 
-### 🩺 Rare Disease Detection
+### ⚪️ Rare Disease Detection
 Collaborative training for rare genetic disorders with <500 global cases, combining data from specialized centers while maintaining competitive confidentiality.
 
-### 🏥 Multi-Hospital Quality Improvement
+### ⚪️ Multi-Hospital Quality Improvement
 Continuous model improvement across hospital network, automatically incorporating new data while detecting performance degradation and data drift.
 
-### 🔬 Clinical Trial Support
+### ⚪️ Clinical Trial Support
 Decentralized clinical trials with federated analysis of imaging endpoints, reducing trial costs and accelerating drug development timelines.
 
 ---
