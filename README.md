@@ -489,60 +489,95 @@ audit.to_dataframe().to_csv("privacy_audit.csv")
 
 The Medical FL Platform implements a distributed, privacy-preserving architecture designed specifically for healthcare environments. The system supports thousands of concurrent clients while maintaining HIPAA compliance and sub-second model update latency.
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        Healthcare Institutions                       │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │Hospital A│  │Hospital B│  │Hospital C│  │Hospital N│           │
-│  │  Client  │  │  Client  │  │  Client  │  │  Client  │           │
-│  │  Agent   │  │  Agent   │  │  Agent   │  │  Agent   │           │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘           │
-└───────┼────────────┼────────────┼────────────┼─────────────────────┘
-        │            │            │            │
-        │ Encrypted  │ Model      │ Updates    │
-        │ Channel    │ Updates    │ Only       │
-        └────┬───────┴─────┬──────┴─────┬──────┘
-             │             │            │
-        ┌────▼─────────────▼────────────▼─────┐
-        │     Federated Learning Server        │
-        │  ┌────────────────────────────────┐  │
-        │  │   Flower Coordination Engine   │  │
-        │  │  • FedAvg with DP              │  │
-        │  │  • Secure Aggregation          │  │
-        │  │  • Client Selection            │  │
-        │  └────────────────────────────────┘  │
-        └──────────────┬───────────────────────┘
-                       │
-        ┌──────────────▼───────────────────────┐
-        │         Backend Services             │
-        │  ┌────────────┐    ┌──────────────┐  │
-        │  │    API     │    │  Experiment  │  │
-        │  │  Gateway   │◄───┤  Management  │  │
-        │  └──────┬─────┘    └──────────────┘  │
-        │         │                             │
-        │  ┌──────▼─────┐    ┌──────────────┐  │
-        │  │   Model    │    │   Privacy    │  │
-        │  │  Registry  │    │   Monitor    │  │
-        │  └────────────┘    └──────────────┘  │
-        └──────────────┬───────────────────────┘
-                       │
-        ┌──────────────▼───────────────────────┐
-        │       Data & Storage Layer           │
-        │  ┌────────┐  ┌────────┐  ┌────────┐  │
-        │  │Postgres│  │ Redis  │  │ MLflow │  │
-        │  │   DB   │  │ Cache  │  │ Models │  │
-        │  └────────┘  └────────┘  └────────┘  │
-        └──────────────────────────────────────┘
-                       │
-        ┌──────────────▼───────────────────────┐
-        │       Frontend Dashboard             │
-        │  ┌────────────────────────────────┐  │
-        │  │     React Application          │  │
-        │  │  • Real-time Monitoring        │  │
-        │  │  • Experiment Management       │  │
-        │  │  • Privacy Visualization       │  │
-        │  └────────────────────────────────┘  │
-        └──────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph hospitals["🏥 Healthcare Institutions"]
+        HA[Hospital AClient Agent]
+        HB[Hospital BClient Agent]
+        HC[Hospital CClient Agent]
+        HN[Hospital NClient Agent]
+    end
+    
+    subgraph fl["⚡ Federated Learning Server"]
+        FLOWER[Flower CoordinationEngine]
+        FEDAVG[FedAvg with DP]
+        SECURE[Secure Aggregation]
+        SELECT[Client Selection]
+        
+        FLOWER --> FEDAVG
+        FLOWER --> SECURE
+        FLOWER --> SELECT
+    end
+    
+    subgraph backend["🔧 Backend Services"]
+        API[API GatewayFlask REST]
+        EXP[ExperimentManagement]
+        MODEL[ModelRegistry]
+        PRIVACY[PrivacyMonitor]
+        
+        API --> EXP
+        API --> MODEL
+        API --> PRIVACY
+    end
+    
+    subgraph storage["💾 Data & Storage Layer"]
+        POSTGRES[(PostgreSQLDatabase)]
+        REDIS[(RedisCache)]
+        MLFLOW[(MLflowModels)]
+        MINIO[(MinIOObject Storage)]
+        
+        POSTGRES -.->|Metadata| REDIS
+        MLFLOW -.->|Artifacts| MINIO
+    end
+    
+    subgraph monitoring["📊 Monitoring & Observability"]
+        PROM[PrometheusMetrics]
+        GRAFANA[GrafanaDashboards]
+        
+        PROM --> GRAFANA
+    end
+    
+    subgraph frontend["🖥️ Frontend Dashboard"]
+        REACT[React Application]
+        REALTIME[Real-timeMonitoring]
+        EXPUI[ExperimentManagement]
+        PRIVUI[PrivacyVisualization]
+        
+        REACT --> REALTIME
+        REACT --> EXPUI
+        REACT --> PRIVUI
+    end
+    
+    %% Connections between layers
+    HA -->|EncryptedModel Updates| FLOWER
+    HB -->|EncryptedModel Updates| FLOWER
+    HC -->|EncryptedModel Updates| FLOWER
+    HN -->|EncryptedModel Updates| FLOWER
+    
+    FLOWER -->|Global Model| HA
+    FLOWER -->|Global Model| HB
+    FLOWER -->|Global Model| HC
+    FLOWER -->|Global Model| HN
+    
+    FLOWER -->|Training Status| API
+    EXP -->|Orchestration| FLOWER
+    
+    API -->|Read/Write| POSTGRES
+    API -->|Cache| REDIS
+    MODEL -->|Store Models| MLFLOW
+    
+    FLOWER -->|Metrics| PROM
+    API -->|Metrics| PROM
+    
+    REACT -->|HTTP/WebSocket| API
+    REALTIME -->|Live Updates| API
+    
+    style hospitals fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style fl fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style backend fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style storage fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style monitoring fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style frontend fill:#e0f2f1,stroke:#00796b,stroke-width:3px
 ```
 
 ### Core Components
