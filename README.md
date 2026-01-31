@@ -1136,9 +1136,9 @@ If you use Medical FL Platform in your research, please cite:
 ```bibtex
 @software{medical_fl_platform,
   title = {Medical Federated Learning Platform: Privacy-Preserving Collaborative AI for Healthcare},
-  author = {Your Name},
-  year = {2024},
-  url = {https://github.com/yourusername/medical-fl-platform},
+  author = Abrar Ahmad,
+  year = {2026},
+  url = {https://github.com/abrarahmad1510/medical-fl-platform},
   version = {1.0.0}
 }
 ```
