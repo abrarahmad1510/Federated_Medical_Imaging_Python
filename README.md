@@ -81,19 +81,19 @@ Modern medical AI development faces critical barriers that limit innovation and 
 
 ## Key Features
 
-### 🏥 Privacy-Preserving Federated Learning
+### ✨ Privacy-Preserving Federated Learning
 Train models collaboratively across multiple hospitals without sharing patient data. Each institution's data remains within their secure environment while contributing to a shared global model. Implements state-of-the-art federated averaging with support for non-IID (non-independent and identically distributed) medical datasets.
 
-### 🔒 Differential Privacy Guarantees
+### ✨ Differential Privacy Guarantees
 Mathematical privacy guarantees with ε-differential privacy implementation. Configurable privacy budgets allow institutions to balance model accuracy with privacy protection. Real-time privacy budget tracking ensures compliance with institutional policies and regulatory requirements.
 
-### 🧠 Medical Imaging Specialization
+### ✨ Medical Imaging Specialization
 Built on MONAI (Medical Open Network for AI) with optimized support for 3D medical imaging including brain MRI, CT scans, and full-body imaging. Supports diverse segmentation tasks such as tumor detection, organ segmentation, and lesion identification across multiple modalities including MRI (T1, T2, FLAIR), CT, PET, X-Ray, and pathology slides. Handles all major medical data formats including DICOM, NIfTI, NRRD, and standard image formats.
 
-### 📊 Real-Time Monitoring Dashboard
+### ✨ Real-Time Monitoring Dashboard
 Beautiful, intuitive React dashboard for monitoring training progress with live training metrics (accuracy, loss, Dice score) across all participating institutions. Features per-client performance tracking and contribution analysis, privacy budget consumption visualization, service health monitoring and alerts, and model performance comparison across rounds.
 
-### 🔐 Enterprise Security & Compliance
+### ✨ Enterprise Security & Compliance
 Production-ready security architecture with end-to-end TLS 1.3 encryption for all communications, JWT-based authentication with role-based access control (RBAC), and comprehensive audit logging for regulatory compliance. Includes HIPAA-ready deployment configurations and support for institutional VPN and firewall requirements.
 
 ---
@@ -835,9 +835,9 @@ Special thanks to the healthcare institutions and researchers who participated i
 
 ---
 
-<div align="center">
+<div align="left">
 
-### 🏥 Advancing Healthcare AI Through Privacy-Preserving Collaboration 🏥
+### Advancing Healthcare AI Through Privacy-Preserving Collaboration 
 
 **[Website](https://medicalfl.example.org)** • 
 **[Documentation](https://docs.medicalfl.example.org)** • 
@@ -853,7 +853,7 @@ Special thanks to the healthcare institutions and researchers who participated i
 
 ---
 
-**Made with ❤️ for the healthcare and medical AI community**
+**Developed With Dedication for Healthcare & Medical AI Community**
 
 *Enabling breakthrough research without compromising patient privacy*
 
