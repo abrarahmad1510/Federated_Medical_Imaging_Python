@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+name: medical-fl
+labels:
+name: medical-fl
+environment: production

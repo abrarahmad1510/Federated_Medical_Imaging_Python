@@ -1,0 +1,149 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: backend
+namespace: medical-fl
+labels:
+app: backend
+component: api
+spec:
+replicas: 3
+selector:
+matchLabels:
+app: backend
+component: api
+template:
+metadata:
+labels:
+app: backend
+component: api
+annotations:
+prometheus.io/scrape: "true"
+prometheus.io/port: "5000"
+prometheus.io/path: "/metrics"
+spec:
+containers:
+- name: backend
+image: medical-fl-backend:latest
+imagePullPolicy: IfNotPresent
+ports:
+- containerPort: 5000
+name: http
+env:
+- name: FLASK_ENV
+value: "production"
+- name: DB_HOST
+value: "postgres.medical-fl.svc.cluster.local"
+- name: DB_PORT
+value: "5432"
+- name: DB_NAME
+value: "medical_fl"
+- name: DB_USER
+value: "fl_admin"
+- name: DB_PASSWORD
+valueFrom:
+secretKeyRef:
+name: postgres-secret
+key: POSTGRES_PASSWORD
+- name: REDIS_HOST
+value: "redis.medical-fl.svc.cluster.local"
+- name: REDIS_PASSWORD
+valueFrom:
+secretKeyRef:
+name: redis-secret
+key: redis-password
+- name: JWT_SECRET_KEY
+valueFrom:
+secretKeyRef:
+name: backend-secret
+key: jwt-secret
+resources:
+requests:
+memory: "512Mi"
+cpu: "500m"
+limits:
+memory: "1Gi"
+cpu: "1000m"
+livenessProbe:
+httpGet:
+path: /health
+port: 5000
+initialDelaySeconds: 30
+periodSeconds: 10
+timeoutSeconds: 5
+readinessProbe:
+httpGet:
+path: /health
+port: 5000
+initialDelaySeconds: 5
+periodSeconds: 5
+timeoutSeconds: 3
+volumeMounts:
+- name: logs
+mountPath: /app/logs
+- name: uploads
+mountPath: /app/uploads
+- name: models
+mountPath: /app/models
+volumes:
+- name: logs
+persistentVolumeClaim:
+claimName: logs-pvc
+- name: uploads
+persistentVolumeClaim:
+claimName: uploads-pvc
+- name: models
+persistentVolumeClaim:
+claimName: models-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+name: backend
+namespace: medical-fl
+spec:
+type: ClusterIP
+ports:
+- port: 5000
+targetPort: 5000
+protocol: TCP
+name: http
+selector:
+app: backend
+component: api
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: logs-pvc
+namespace: medical-fl
+spec:
+accessModes:
+- ReadWriteMany
+resources:
+requests:
+storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: uploads-pvc
+namespace: medical-fl
+spec:
+accessModes:
+- ReadWriteMany
+resources:
+requests:
+storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+name: models-pvc
+namespace: medical-fl
+spec:
+accessModes:
+- ReadWriteMany
+resources:
+requests:
+storage: 50Gi
