@@ -945,19 +945,6 @@ The platform implements **ε-differential privacy** with mathematical privacy gu
 
 ---
 
-## Support
-
-### Commercial Support
-
-For enterprise deployments, training, and custom development:
-- 📧 Email: abrarahmad.professional@gmail.com
-- 🌐 Website: https://medicalfl.example.org
-- 📞 Phone: +1 (555) 123-4567
-
-Contact: training@medicalfl.example.org
-
----
-
 <div align="center">
 
 ### 🏥 Advancing Healthcare AI Through Privacy-Preserving Collaboration 🏥
